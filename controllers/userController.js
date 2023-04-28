@@ -725,16 +725,30 @@ const singleOrder = async (req, res) => {
   try {
     if (req.session.user) {
       const id = req.query.id;
-      const orderData = await Order.findById(id).populate("product.productId");
-      res.render("user/single_order", { data: orderData.product, orderData });
+      const idLength = id.length;
+      if (idLength != 24) {
+        res.redirect("/IdMismatch");
+      } else {
+        const orderData = await Order.findById(id).populate(
+          "product.productId"
+        );
+        if (orderData == null) {
+          res.redirect("/IdMismatch");
+        } else {
+          res.render("user/single_order", {
+            data: orderData.product,
+            orderData,
+          });
+        }
+      }
     } else {
       res.redirect("/login");
     }
   } catch (error) {
+    res.redirect("/serverERR", { message: error.message });
     console.log(error.message);
   }
 };
-
 // applya coupon//
 const applycoupon = async (req, res) => {
   try {
