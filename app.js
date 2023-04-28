@@ -26,15 +26,6 @@ app.use((req,res,next)=>{
    next()
 })
 
-//session
-// app.use(
-//   session({
-//     secret: "SHAKIL",
-//     saveUninitialized: true,
-//     resave: false,
-//     cookie: { maxAge: 30*200000 },
-//   })
-// );
 
 //cookies
 app.use((req, res, next) => {
@@ -52,6 +43,16 @@ app.use("/", userRoute);
 //adminRoute
 const adminRoute = require("./routes/adminRoute");
 app.use("/admin", adminRoute);
+
+
+app.use((req,res) => {
+  try {
+      res.status(404).render('404')
+  } catch (error) {
+      res.status(500).render('500')
+  }
+})
+
 
 app.listen(3000, () => {
   console.log("server is running");
