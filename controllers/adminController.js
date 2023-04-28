@@ -122,24 +122,83 @@ const getlogout = async (req, res) => {
   res.redirect("/admin");
 };
 
-//getSales Report----------------------------------------------------------------
+//getSales Report
 const getSalesReport = async (req, res) => {
   try {
+    let start
+    let end  
+    req.query.start ? (start = new Date(req.query.start)) : (start = "ALL");
+    req.query.end ? (end = new Date(req.query.end)) : (end = "ALL");
+    if(start != "ALL" && end != "ALL"){
+      const data = await Order.aggregate([
+          {
+              $match : {
+                  $and : [{Date : {$gte : start}},{Date : {$lte : end}},{ status: { $eq: "Delivered" } }]
+              }
+          }
+      ])
+      let SubTotal = 0;
+    data.forEach(function (value) {
+      SubTotal = SubTotal + value.totalAmount;
+    });
+      res.render('admin/salesReport', {data , total: SubTotal})
+  }else{
     const orderData = await Order.find({ status: { $eq: "Delivered" } });
     let SubTotal = 0;
     orderData.forEach(function (value) {
       SubTotal = SubTotal + value.totalAmount;
     });
-    console.log(
-      orderData
-    );
-
     res.render("admin/salesReport", { data: orderData, total: SubTotal });
+  }
+
+
   } catch (error) {
     res.redirect("/serverERR", { message: error.message });
     console.log(error.message);
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//getSales Report----------------------------------------------------------------
+// const getSalesReport = async (req, res) => {
+//   try {
+//     const orderData = await Order.find({ status: { $eq: "Delivered" } });
+//     let SubTotal = 0;
+//     orderData.forEach(function (value) {
+//       SubTotal = SubTotal + value.totalAmount;
+//     });
+//     console.log(
+//       orderData
+//     );
+
+//     res.render("admin/salesReport", { data: orderData, total: SubTotal });
+//   } catch (error) {
+//     res.redirect("/serverERR", { message: error.message });
+//     console.log(error.message);
+//   }
+// };
 
 module.exports = {
   getLogin,
