@@ -37,30 +37,45 @@ const updatestatus = async (req,res)=>{
 //cancel order---------------------------------
 const cancelOrder = async (req, res) => {
   try {
-    if(req.session.user){
-      const id = req.query.id
-      const orderData = await Order.findById(id)
-      if(orderData.paymentMethod == "cod"){
-        await User.findOneAndUpdate({name: req.session.name},{
-          wallet: orderData.wallet
-        })
-        const orderDataa= await Order.findByIdAndUpdate(id, {
-          status: "cancelled",
-          wallet: 0
-        })
-  
-        if(orderDataa){
-          res.redirect("/order")
+    if (req.session.user) {
+      const id = req.query.id;
+      const idLength = id.length;
+      if (idLength != 24) {
+        res.redirect("/IdMismatch");
+      } else {
+        const orderData = await Order.findById(id);
+        if (orderData == null) {
+          res.redirect("/IdMismatch");
+        } else {
+          if (
+            orderData.paymentMethod == "cod" ||
+            orderData.paymentMethod == "online"
+          ) {
+            await User.findOneAndUpdate(
+              { name: req.session.name },
+              {
+                $inc: { wallet: +orderData.wallet },
+              }
+            );
+
+            const orderDataa = await Order.findByIdAndUpdate(id, {
+              status: "cancelled",
+            });
+
+            if (orderDataa) {
+              res.redirect("/order");
+            }
+          }
         }
       }
-    }else{
+    } else {
       res.redirect("/login");
     }
   } catch (error) {
-    res.redirect('/serverERR', {message: error.message})
+    res.redirect("/serverERR", { message: error.message });
     console.log(error.message);
   }
-}
+};
 
 //rerturn order
 const returnOrder = async (req, res) => {
@@ -102,7 +117,7 @@ const checkWallet = async (req, res) => {
     if(req.session.user){
       const userData = await User.findOne({name: req.session.name})
       const walleta = userData.wallet
-      if(walleta>0){
+      if(walleta > 0){
         res.json({success: true ,walleta})
       }
     }else{
@@ -113,6 +128,7 @@ const checkWallet = async (req, res) => {
     console.log(error.message);
   }
 }
+
 
 //report downlod---------------------------
 const report = async (req,res) => {
