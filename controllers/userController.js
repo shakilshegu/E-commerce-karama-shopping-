@@ -279,6 +279,7 @@ const getproducts = async (req, res) => {
       i++;
     }
     const data2 = await categorycollectons.find();
+    console.log(data);
     res.render("user/products", { user: data, data2, total: a });
   } catch (error) {
     console.log(error.message);

@@ -8,6 +8,19 @@ mongoose.connect("mongodb://127.0.0.1:27017/UserManage").then(() => {
 });
 const flash = require('express-flash');
 
+const upload = require('./middleware/multer')
+const cloudinary = require('./middleware/cloudinary')
+const fs = require("fs")
+
+app.use('/upload-images',upload.array('image'),async(req,res)=>{
+  const uploder = async(path )=> await cloudinary.uploads(path,"images")
+  
+})
+
+
+
+
+
 app.use(session({
     secret:process.env.SESSION_SCRKEY,
     resave: false,
@@ -42,6 +55,7 @@ app.use("/", userRoute);
 
 //adminRoute
 const adminRoute = require("./routes/adminRoute");
+const { promises } = require("nodemailer/lib/xoauth2");
 app.use("/admin", adminRoute);
 
 

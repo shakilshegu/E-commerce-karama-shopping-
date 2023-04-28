@@ -1,5 +1,6 @@
 const productscollection = require("../models/productModel");
 const categorycollectons = require("../models/categoryModel");
+const cloudinary = require("../middleware/cloudinary")
 
 // get products page  -------------------------------------
 const getaddproducts = async (req, res) => {
@@ -16,8 +17,15 @@ const getaddproducts = async (req, res) => {
 // post add products---------------------------------------
 const postproduct = async (req, res) => {
   try {
+
     console.log(req.body);
-    const img = req.files.map((file) => file.filename);
+    let img = []
+    for(const file of req.files){
+     const result = await cloudinary.uploader.upload(file.path)
+       img.push(result.public_id)
+       
+      }
+    // const img = req.files.map((file) => file.filename);
     const products = new productscollection({
       productname: req.body.productname,
       brand: req.body.brand,
@@ -27,8 +35,11 @@ const postproduct = async (req, res) => {
       category: req.body.category,
       image: img,
     });
+      console.log("🚀 ~ file: productController.js:38 ~ postproduct ~ img:", img)
 
     const productdata = await products.save();
+    console.log("🚀 ~ file: productController.js:32 ~ postproduct ~ productdata:", productdata)
+    
     if (productdata) {
       res.redirect("/admin/products");
     }

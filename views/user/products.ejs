@@ -209,7 +209,7 @@
 						<%user.forEach(function(user,index){%>
 							<div class="col-lg-4 col-md-6">
 								<div class="single-product">
-									<img onclick="location.href='/singleproduct?id=<%=user._id %>'" style="height: 280px;" class="img-fluid" src="/productimage/<%=user.image[0]%>" alt="<%=user.image%>">
+									<img onclick="location.href='/singleproduct?id=<%=user._id %>'" style="height: 280px;" class="img-fluid" src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%=user.image[0]%>.jpg" alt="<%=user.image%>">
 									<div class="product-details">
 										<h6><%=user.brand%></h6>
 										<h6><%=user.productname%></h6>
