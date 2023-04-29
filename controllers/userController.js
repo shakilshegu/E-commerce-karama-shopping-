@@ -622,9 +622,9 @@ const postPlaceOrder = async (req, res) => {
           });
         }
         await Cart.deleteOne({ user: user._id });
-        for (i = 0; i <  product.length; i++) {
-          const productId =  product [i].productId;
-          const quantity = Number( product [i].quantity);
+        for (i = 0; i < product.length; i++) {
+          const productId = product[i].productId;
+          const quantity = Number(product[i].quantity);
           await productcollection.findByIdAndUpdate(productId, {
             $inc: { stock: -quantity },
           });
@@ -873,7 +873,6 @@ const getUserProfile = async (req, res) => {
 };
 
 //get edit address page
-
 const editaddress = async (req, res) => {
   try {
     if (req.session.user) {
