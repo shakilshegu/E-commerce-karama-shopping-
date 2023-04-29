@@ -246,7 +246,7 @@
                                         <tr>
                                             <td><%=orderData.Date.toISOString().substring(0,10)%></td>
                                             <td><%= value.productId.productname %></td>
-                                            <td><img src="/productimage/<%= value.productId.image[0] %>" style="width: 100px;" alt=""></td>
+                                            <td><img  src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%= value.productId.image[0] %>.jpg" style="width: 100px;" alt=""></td>
                                             <td><%= value.productId.price * value.quantity %></td>
                                             <td><%= value.quantity %></td>
                                         </tr>

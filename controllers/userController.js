@@ -609,6 +609,7 @@ const postPlaceOrder = async (req, res) => {
         totalBefore: totalBefore,
         discount: 0,
         Date: new Date(),
+        couponCode: "",
       });
       await orderNew.save();
       let orderId = orderNew._id;
@@ -621,9 +622,9 @@ const postPlaceOrder = async (req, res) => {
           });
         }
         await Cart.deleteOne({ user: user._id });
-        for (i = 0; i < product.length; i++) {
-          const productId = product[i].productId;
-          const quantity = Number(product[i].quantity);
+        for (i = 0; i <  product.length; i++) {
+          const productId =  product [i].productId;
+          const quantity = Number( product [i].quantity);
           await productcollection.findByIdAndUpdate(productId, {
             $inc: { stock: -quantity },
           });
