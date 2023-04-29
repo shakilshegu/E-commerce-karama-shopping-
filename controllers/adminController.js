@@ -9,14 +9,14 @@ const Order = require("../models/orderModel ");
 const getLogin = (req, res) => {
   res.render("admin/adminlogin");
 };
+
 const postLogin = (req, res) => {
   try {
     const { email, password } = req.body;
-    const mypassword = "1234";
-    const myemail = "admin@gmail.com";
-    if (myemail == email) {
-      if (password == mypassword) res.redirect("/admin/home");
-    } else {
+     if(email === "admin@gmail.com" && password === "1234" ){
+       req.session.login = true;
+       res.redirect("/admin/home")
+     } else {
       res.redirect("/admin");
     }
   } catch (error) {
@@ -119,6 +119,7 @@ const getproducts = async (req, res) => {
 
 //Logout---------------------------------------------------
 const getlogout = async (req, res) => {
+  req.session.login = false;
   res.redirect("/admin");
 };
 

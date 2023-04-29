@@ -7,41 +7,44 @@ const ordercontroller = require("../controllers/orderController")
 const upload = require("../middleware/multer");
 const couponcontroller = require("../controllers/couponController") 
 const bannerController= require("../controllers/bannerController")
-//get-----------------------
-adminRouter.get("/", adminConroller.getLogin);
-adminRouter.get("/home", adminConroller.gethome);
-adminRouter.get("/usermanage", adminConroller.getusermanage);
-adminRouter.get("/category", adminConroller.getcategory);
-adminRouter.get("/products", adminConroller.getproducts);
-adminRouter.get("/logout", adminConroller.getlogout);
-adminRouter.get("/addcategory", categorycontroller.getaddcategory);
-adminRouter.get("/editCategory/:id", categorycontroller.editcategory);
-adminRouter.get("/addproducts", productcontroller.getaddproducts);
-adminRouter.get("/editproducts", productcontroller.editproducts);
-adminRouter.get("/deleteproducts", productcontroller.deleteproduct);
-adminRouter.get('/order',ordercontroller.getOrder)
-adminRouter.get('/singleOrder',ordercontroller.viewOrder)
-adminRouter.get("/coupon",couponcontroller.getCoupon)
-adminRouter.get("/addCoupon",couponcontroller.getaddcoupon)
-adminRouter.post("/removeimage",productcontroller.removeimage)
-adminRouter.get("/report",ordercontroller.report);
-adminRouter.get('/sales',ordercontroller.sales)
-adminRouter.get("/banner", bannerController.getBanner);
-adminRouter.get('/addBanner',bannerController.getAddBanner)
-adminRouter.get('/showBanner',bannerController.unlistBanner)
-adminRouter.get("/deletebanner", bannerController.deletebanner);
-adminRouter.get("/salesReport",adminConroller.getSalesReport)
+const session = require("../middleware/adminSession")
 
+//get-----------------------
+adminRouter.get("/",session.notLogged,adminConroller.getLogin);
+adminRouter.get("/home",session.logged,adminConroller.gethome);
+adminRouter.get("/usermanage",session.logged, adminConroller.getusermanage);
+adminRouter.get("/category",session.logged, adminConroller.getcategory);
+adminRouter.get("/products",session.logged, adminConroller.getproducts);
+adminRouter.get("/logout",session.logged, adminConroller.getlogout);
+adminRouter.get("/addcategory",session.logged, categorycontroller.getaddcategory);
+adminRouter.get("/editCategory/:id",session.logged, categorycontroller.editcategory);
+adminRouter.get("/addproducts",session.logged, productcontroller.getaddproducts);
+adminRouter.get("/editproducts",session.logged, productcontroller.editproducts);
+adminRouter.get("/deleteproducts",session.logged, productcontroller.deleteproduct);
+adminRouter.get('/order',session.logged,ordercontroller.getOrder)
+adminRouter.get('/singleOrder',session.logged,ordercontroller.viewOrder)
+adminRouter.get("/coupon",session.logged,couponcontroller.getCoupon)
+adminRouter.get("/addCoupon",session.logged,couponcontroller.getaddcoupon)
+adminRouter.post("/removeimage",session.logged,productcontroller.removeimage)
+adminRouter.get("/report",session.logged,ordercontroller.report);
+adminRouter.get('/sales',session.logged,ordercontroller.sales)
+adminRouter.get("/banner",session.logged,bannerController.getBanner);
+adminRouter.get('/addBanner',session.logged,bannerController.getAddBanner)
+adminRouter.get('/showBanner',session.logged,bannerController.unlistBanner)
+adminRouter.get("/deletebanner",session.logged,bannerController.deletebanner);
+adminRouter.get("/salesReport",adminConroller.getSalesReport)
+adminRouter.get("/deleteCoupon",session.logged,couponcontroller.deleteCoupon)
+adminRouter.get('/show-category',session.logged,categorycontroller.unlistCategory)
 
 //post----------------------
 adminRouter.post("/", adminConroller.postLogin);
-adminRouter.post("/addcategory", categorycontroller.postaddCategory);
-adminRouter.post("/saveCategory/:id", categorycontroller.editpostcategory);
-adminRouter.post("/addproducts",upload.array("image",3),productcontroller.postproduct);
-adminRouter.post("/editproducts",upload.array("image",3),productcontroller.editpostproduct);
-adminRouter.post("/updateStatus",ordercontroller.updatestatus)
-adminRouter.post("/addCoupon",couponcontroller.postaddcoupon)
-adminRouter.post('/addBanner',upload.single('image'),bannerController.postAddBanner)
+adminRouter.post("/addcategory",session.logged,categorycontroller.postaddCategory);
+adminRouter.post("/saveCategory/:id",session.logged, categorycontroller.editpostcategory);
+adminRouter.post("/addproducts",session.logged,upload.array("image",3),productcontroller.postproduct);
+adminRouter.post("/editproducts",session.logged,upload.array("image",3),productcontroller.editpostproduct);
+adminRouter.post("/updateStatus",session.logged,ordercontroller.updatestatus)
+adminRouter.post("/addCoupon",session.logged,couponcontroller.postaddcoupon)
+adminRouter.post('/addBanner',session.logged,upload.single('image'),bannerController.postAddBanner)
 
 
 module.exports = adminRouter;

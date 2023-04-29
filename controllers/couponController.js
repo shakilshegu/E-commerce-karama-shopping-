@@ -1,7 +1,6 @@
 const Coupon = require("../models/couponmodel");
 
 //getcoupen----------
-
 const getCoupon = async (req, res) => {
   try {
     const coupon = await Coupon.find();
@@ -12,7 +11,6 @@ const getCoupon = async (req, res) => {
 };
 
 //get addcoupen-----------
-
 const getaddcoupon = async (req, res) => {
   try {
     res.render("admin/addcoupon");
@@ -39,8 +37,23 @@ const postaddcoupon = async (req, res) => {
   }
 };
 
+//detete coupen-------
+const deleteCoupon = async (req, res) => {
+  try {
+    
+    const code = req.query.code;
+    await Coupon.findOneAndDelete({ couponcode: code });
+    res.redirect("/admin/coupon");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
+
 module.exports = {
   getCoupon,
   getaddcoupon,
   postaddcoupon,
+  deleteCoupon
 };

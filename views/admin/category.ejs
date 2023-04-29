@@ -146,16 +146,17 @@
                                                         <td>
                                                             <%= value.category%>
                                                         </td>
-                                                        <% if(true){ %>
-                                                            
-                                                          <% } else{ %>  
-                                                            <h1>bar</h1>
-                                                         <% } %>
                                                         <td><a href="editCategory/<%=value._id%>" type="button"
-                                                                class="btn btn-primary">Edit</a></td>
+                                                            class="btn btn-primary">Edit</a></td>
+                                                    </td>
+                                                        <% if(value.status==false){ %>
+                                                            <td><a href="/admin/show-category?id=<%= value._id %>"><button class="btn btn-success" onclick="return showconfirm(this)">Show</button></a></td>
 
-                                                        <td> <a href="" type="button" class="btn btn-success">List</a>
-                                                        </td>
+                                                          <% } else{ %>  
+                                                            <td><a href="/admin/show-category?id=<%= value._id %>"><button class="btn btn-danger" onclick="return hideconfirm(this)">Hide</button></a></td>
+
+                                                             <% } %>
+                                                        
                                                     </tr>
                                                     <% }) %>
                                                         <% } %>

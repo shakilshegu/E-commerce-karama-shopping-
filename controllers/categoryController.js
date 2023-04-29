@@ -58,10 +58,24 @@ const editpostcategory = async (req, res) => {
     res.send(err.message);
   }
 };
+//list and unlist category-------
+const unlistCategory = async (req,res) => {
+  const id = req.query.id
+  const data = await categorycollection.findOne({_id : id})
+      if(data.status == false){
+          await categorycollection.findOneAndUpdate({_id : id},{$set : {status : true}})
+      }else{
+          await categorycollection.findOneAndUpdate({_id : id},{$set : { status:  false}})
+      }
+  res.redirect('/admin/category')
+}
+
+
 
 module.exports = {
   postaddCategory,
   editcategory,
   editpostcategory,
   getaddcategory,
+  unlistCategory
 };

@@ -138,8 +138,8 @@
                                         <th scope="col" class="text-center">Amount</th>
                                         <th scope="col" class="text-center">MinCart Amount</th>
                                         <th scope="col" class="text-center">Expiry Date</th>
-                                        
                                         <th scope="col" class="text-center">Status</th>
+                                        <th scope="col" class="text-center">Delete</th>
                                         
                                     </tr>
                                 </thead>
@@ -154,7 +154,7 @@
                                         <td class="text-center"><%=coupon.expiredate.toISOString().substring(0,10)%></td>
                                         <!-- <td class="text-center"><%=coupon.limit%></td> -->
                                         <td class="text-center"><%=coupon.status%></td>
-                                        <!-- <td class="text-center"><a href="/admin/deleteCoupon?code=<%=coupon.couponcode%>" class="fa fa-trash "  style="font-size:20px;color:rgb(235, 14, 14) ; text-decoration: none; background-color: rgba(240, 248, 255, 0); border: none;"></a> </td></td> -->
+                                        <td class="text-center"><a href="/admin/deleteCoupon?code=<%=coupon.couponcode%>" onclick="return confirm('Are you sure you want to delete this coupon?')" class="fa fa-trash "  style="font-size:20px;color:rgb(235, 14, 14) ; text-decoration: none; background-color: rgba(240, 248, 255, 0); border: none;"></a> </td></td>
                                        
                                     </tr>
                                     
