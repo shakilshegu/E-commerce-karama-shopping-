@@ -245,6 +245,7 @@ const verifymail = async (req, res) => {
 };
 
 //product page--------------------------------------
+
 const getproducts = async (req, res) => {
   try {
     let search = "";
@@ -285,6 +286,9 @@ const getproducts = async (req, res) => {
     console.log(error.message);
   }
 };
+
+
+
 //single product page------------
 const getsingleproduct = async (req, res) => {
   try {
