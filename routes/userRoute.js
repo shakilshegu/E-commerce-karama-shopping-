@@ -31,7 +31,7 @@ userRouter.get('/cancelOrder',orderController.cancelOrder)
 userRouter.get("/returnOrder",orderController.returnOrder)
 userRouter.get("/filter",userController.filtercategory)
 userRouter.get("/editadress",userController.editaddress)
-
+userRouter.get("/shakil",userController.contacts)
 
 //post-------------
 userRouter.post("/login", blockfunction, userController.postlogin);

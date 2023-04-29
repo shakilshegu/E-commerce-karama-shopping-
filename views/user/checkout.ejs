@@ -426,7 +426,7 @@
             swal("Oops!", "Add Address", "error");
           }
           else {
-
+            console.log(response.order);
             razorPay(response.order)
           }
         }
@@ -437,7 +437,7 @@
       console.log(order, '------');
       console.log(order._id, '------');
       var options = {
-        "key": "rzp_test_pO7eQKxtMdA8au", // Enter the Key ID generated from the Dashboard
+        "key": "rzp_test_wndxslMBFSLmer", // Enter the Key ID generated from the Dashboard
         "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
         "name": "karama", //your business name
@@ -446,6 +446,9 @@
         "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         // "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
         "handler": function (response) {
+          alert(response.razorpay_payment_id);
+    alert(response.razorpay_order_id);
+    alert(response.razorpay_signature)
 
           verifyPayment(response, order)
         },

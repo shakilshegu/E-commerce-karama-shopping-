@@ -130,12 +130,12 @@
                                 <a href="" onclick="downloadPDF()" target="_blank" >Download Pdf</a>
                                 <div class="w-100 bg-black">
                                     <span class="">from :</span>
-                                    <input type="date">
+                                    <input id="from" name="from" type="date">
                                     <span class="">to :</span>
-                                    <input type="date">
+                                    <input id="to" name="to" type="date">
                                 </div>
                             </from>
-                            <table class="table"  id="sales" >
+                            <table class="table"  id="tabledata" >
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -206,13 +206,45 @@
     <script src="/admin_assets/js/main.js"></script>
     <script>
 		function downloadPDF() {
-			var details = document.getElementById("sales");
+			var details = document.getElementById("tabledata");
 			var newWin = window.open('', 'Print-Window');
 			newWin.document.open();
 			newWin.document.write('<html><head><style>@media print { @page { size: A4; margin: 0; } }</></head><body onload="window.print()">' + details.outerHTML + '</html>'); newWin.document.close();
 			setTimeout(function () { newWin.close(); }, 10);
 		}
 	</script>
+    <!-- <script>
+$('#from, #to').on('change', function() {
+  // Get the selected date value
+  var startDate = $('#from').val();
+  var endDate = $('#to').val();
+
+  // Send an AJAX request to the server
+  $.ajax({
+    url: '/admin/home?datefrom=' + encodeURIComponent(startDate) + '&dateto=' + encodeURIComponent(endDate),
+    success: function(response) {
+      // Clear the table first
+      $('#tabledata tbody').empty();
+
+      // Loop through the sales data and append rows to the table
+      $.each(response.sales, function(index, sale) {
+        $('#tabledata tbody').append(`
+          <tr>
+            <th scope="row">${index + 1}</th>
+            <td>${sale._id}</td>
+            <td><a class="text-primary">${sale.address[0].firstname}</a></td>
+            <td>${sale.totalprice}</td>
+          </tr>
+        `);
+      });
+
+      // Update the total sales amount
+      $('#tabledata tfoot td:last-child').text(response.salestotal);
+    }
+  });
+});
+
+ </script> -->
 
 </body>
 

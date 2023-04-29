@@ -48,13 +48,12 @@ const cancelOrder = async (req, res) => {
           res.redirect("/IdMismatch");
         } else {
           if (
-            orderData.paymentMethod == "cod" ||
             orderData.paymentMethod == "online"
           ) {
             await User.findOneAndUpdate(
               { name: req.session.name },
               {
-                $inc: { wallet: +orderData.wallet },
+                $inc: { wallet: (orderData.wallet) },
               }
             );
 

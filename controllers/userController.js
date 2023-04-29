@@ -9,16 +9,16 @@ const { otpGen } = require("../controllers/otpControllers");
 const orderModel = require("../models/orderModel ");
 const Coupon = require("../models/couponmodel");
 const Banner = require("../models/bannerModel");
-
+require('dotenv').config()
 const Razorpay = require("razorpay");
 const { Console } = require("console");
+
 var instance = new Razorpay({
-  key_id: process.env.key_id,
-  key_secret: process.env.key_secret,
+  key_id:"rzp_test_wndxslMBFSLmer",
+  key_secret: "xSaw57oQRz1dpZ9rQrKmqJHA",
 });
 
 var username;
-
 const sMail = (email, otp) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -631,12 +631,18 @@ const postPlaceOrder = async (req, res) => {
         }
         res.json({ codSuccess: true });
       } else {
+        console.log( process.env.key_secret);
+        console.log( process.env.key_id);
         var options = {
           amount: total * 100, // amount in the smallest currency unit
           currency: "INR",
           receipt: "" + orderId,
         };
-        instance.orders.create(options, function (err, order) {
+
+        instance.orders.create(options, function (err, order) { console.log(order);
+          if(err){
+            console.log(err);
+          }
           res.json({ order });
         });
       }
@@ -657,7 +663,7 @@ const verifyPayment = async (req, res) => {
       const product = cartData.product;
       const details = req.body;
       const crypto = require("crypto");
-      let hmac1 = crypto.createHmac("sha256", process.env.key_secret);
+      let hmac1 = crypto.createHmac("sha256","xSaw57oQRz1dpZ9rQrKmqJHA");
       console.log(hmac1);
       hmac1.update(
         details.payment.razorpay_order_id +
@@ -665,12 +671,9 @@ const verifyPayment = async (req, res) => {
           details.payment.razorpay_payment_id
       );
       hmac1 = hmac1.digest("hex");
-
       if (hmac1 == details.payment.razorpay_signature) {
         let orderReceipt = details.order.receipt;
-
         const newOrder = await Order.find().sort({ date: -1 }).limit(1);
-
         const hai = newOrder.map((value) => {
           return value._id;
         });
@@ -913,6 +916,15 @@ const editpostaddress = async (req, res) => {
   }
 };
 
+//contacts----------
+const contacts = (req, res)=>{
+  try {
+    res.render("user/contact")
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 module.exports = {
   getHome,
   getLogin,
@@ -947,4 +959,5 @@ module.exports = {
   updateData,
   editaddress,
   editpostaddress,
+  contacts
 };
