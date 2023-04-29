@@ -626,13 +626,11 @@ const postPlaceOrder = async (req, res) => {
           const productId = product[i].productId;
           const quantity = Number(product[i].quantity);
           await productcollection.findByIdAndUpdate(productId, {
-            $inc: { stock: -quantity },
+            $inc: { quantity: -quantity },
           });
         }
         res.json({ codSuccess: true });
       } else {
-        console.log( process.env.key_secret);
-        console.log( process.env.key_id);
         var options = {
           amount: total * 100, // amount in the smallest currency unit
           currency: "INR",
@@ -677,14 +675,14 @@ const verifyPayment = async (req, res) => {
         const hai = newOrder.map((value) => {
           return value._id;
         });
-
+        
         let test1 = await Order.findByIdAndUpdate(
           { _id: hai },
           { $set: { paymentId: details.payment.razorpay_payment_id } }
         ).then((value) => {
           console.log(value);
         });
-
+        
         let test2 = await Order.findByIdAndUpdate(orderReceipt, {
           $set: { status: "placed" },
         });
