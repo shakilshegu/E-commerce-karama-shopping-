@@ -205,7 +205,7 @@
         </div>
       </div>
 
-     
+
 
 
 
@@ -237,7 +237,7 @@
                           </button>
                         </div>
                         <div class="col-2">
-                          <button onclick="location.href='/editadress?id=<%=value._id%>'" type="button" class="" 
+                          <button onclick="location.href='/editadress?id=<%=value._id%>'" type="button" class=""
                             data-target="#Modal">
                             Edit
                           </button>
@@ -261,7 +261,7 @@
                       <a class="genric-btn primary text-light" onclick="applyCoupon($('#code').val())">Apply
                         Coupon</a>
                     </div>
-                   
+
                   </div>
 
                 </div>
@@ -282,16 +282,16 @@
                         <span>$0.00</span>
                       </p>
                       <p class="d-flex">
-                        <span>Wallet  :</span>
+                        <span>Wallet :</span>
                         $
                         <span id="wallet">0.00</span>
                       </p>
                       <div class="d-flex flex-row justify-content-between">
                         <span>Discount :</span>
                         <span id="coupondiscount" style="color:#e5380d"></span>
-                         <p class="text-end"> <a   href="/checkout"> Remove coupon </a></p>
+                        <p class="text-end"> <a href="/checkout"> Remove coupon </a></p>
                       </div>
-                        
+
                       <hr />
                       <p class="d-flex ">
                         <span>Total :</span>
@@ -535,9 +535,9 @@
         success: (response) => {
           if (response.success) {
             console.log("success");
-           
-            if(response.wallet > amount){
-              response.wallet=response-amount
+
+            if (response.wallet > amount) {
+              response.wallet = response - amount
               walletPlace.innerHTML = response.walleta
             }
             let test = amount - response.walleta

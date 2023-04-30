@@ -38,8 +38,9 @@
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -49,26 +50,30 @@
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 							<li class="nav-item submenu dropdown active">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item active"><a class="nav-link" href="category.html">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
+									<li class="nav-item active"><a class="nav-link" href="category.html">Shop
+											Category</a></li>
+									<li class="nav-item"><a class="nav-link" href="single-product.html">Product
+											Details</a></li>
+									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
+									</li>
 									<li class="nav-item"><a class="nav-link" href="cart">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
+									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a>
+									</li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Orders</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Orders</a>
 								<ul class="dropdown-menu">
 									<a class="nav-link" href="order">User Orders</a>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
@@ -80,8 +85,8 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item"><a href="cart" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
-								<a href="getUserProfile" class="cart"><span  class="ti-user"></span></a>
-							  </li>
+								<a href="getUserProfile" class="cart"><span class="ti-user"></span></a>
+							</li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -90,7 +95,7 @@
 				</div>
 			</nav>
 		</div>
-	
+
 	</header>
 	<!-- End Header Area -->
 
@@ -110,38 +115,37 @@
 		</div>
 	</section>
 
-	
+
 	<!-- End Banner Area -->
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-5">
 				<div class="sidebar-categories">
 					<div class="shop__sidebar__search">
-						<form >
+						<form>
 							<input type="text" name="search" placeholder="Search...">
 							<button type="submit"><span class="fa fa-search"></span></button>
 						</form>
 					</div>
 					<div class="head">Browse Categories</div>
 					<ul class="main-categories">
-						<%
-						if(data2.length > 0){
-						%>
-						<%data2.forEach(function(data2,index){%>
-							<li class="main-nav-list"><a href='/filter?id=<%=data2._id %>' ><%=data2.category%></a></li>
-							<%})%>
-						<%    
-						}else{%>
-							<tr>
-								<td>
-									category Not Found
-								</td>
-							</tr>
-					   <% }
-						%>
+						<% if(data2.length> 0){
+							%>
+							<%data2.forEach(function(data2,index){%>
+								<li class="main-nav-list"><a href='/filter?id=<%=data2._id %>'>
+										<%=data2.category%>
+									</a></li>
+								<%})%>
+									<% }else{%>
+										<tr>
+											<td>
+												category Not Found
+											</td>
+										</tr>
+										<% } %>
 					</ul>
 				</div>
-				
+
 			</div>
 			<div class="col-xl-9 col-lg-8 col-md-7">
 				<!-- Start Filter Bar -->
@@ -150,13 +154,13 @@
 						<select>
 							<option value="1">Default sorting</option>
 							<a href="/short/?id=<%=data2.catego %>" value="1">Default sorting</a>
-							
-								<option value="">Sort By</option>
-								<option value="brand:asc" >Brand A-Z</option>
-								<option value="brand:desc" >Brand Z-A</option>
-								<option value="price:asc" >Price Low to High</option>
-								<option value="price:desc">Price High to Low</option>
-							
+
+							<option value="">Sort By</option>
+							<option value="brand:asc">Brand A-Z</option>
+							<option value="brand:desc">Brand Z-A</option>
+							<option value="price:asc">Price Low to High</option>
+							<option value="price:desc">Price High to Low</option>
+
 						</select>
 					</div>
 				</div>
@@ -165,53 +169,61 @@
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
 						<!-- single product -->
-						<%
-						if(user.length > 0){
-						%>
-						<%user.forEach(function(user,index){%>
-							<div class="col-lg-4 col-md-6">
-								<div class="single-product">
-									<img onclick="location.href='/singleproduct?id=<%=user._id %>'" style="height: 280px;" class="img-fluid" src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%=user.image[0]%>.jpg" alt="<%=user.image%>">
-									<div class="product-details">
-										<h6><%=user.brand%></h6>
-										<h6><%=user.productname%></h6>
-										<h7><%=user.description%></h7>
-										<div class="price">
-											<h6><%=user.price %></h6>
-										</div>
-										<div class="prd-bottom">
-											<a  onclick="addcart('<%=user._id %>')"  class="social-info">
-												<span class="ti-bag"></span>
-												<p class="hover-text">add to bag</p>
-											</a>
-											<a href="" class="social-info">
-												<span class="lnr lnr-heart"></span>
-												<p class="hover-text">Wishlist</p>
-											</a>
-											<a href="" class="social-info">
-												<span class="lnr lnr-sync"></span>
-												<p class="hover-text">compare</p>
-											</a>
-											<a href="" class="social-info">
-												<span class="lnr lnr-move"></span>
-												<p class="hover-text">view more</p>
-											</a>
+						<% if(user.length> 0){
+							%>
+							<%user.forEach(function(user,index){%>
+								<div class="col-lg-4 col-md-6">
+									<div class="single-product">
+										<img onclick="location.href='/singleproduct?id=<%=user._id %>'"
+											style="height: 280px;" class="img-fluid"
+											src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%=user.image[0]%>.jpg"
+											alt="<%=user.image%>">
+										<div class="product-details">
+											<h6>
+												<%=user.brand%>
+											</h6>
+											<h6>
+												<%=user.productname%>
+											</h6>
+											<h7>
+												<%=user.description%>
+											</h7>
+											<div class="price">
+												<h6>
+													<%=user.price %>
+												</h6>
+											</div>
+											<div class="prd-bottom">
+												<a onclick="addcart('<%=user._id %>')" class="social-info">
+													<span class="ti-bag"></span>
+													<p class="hover-text">add to bag</p>
+												</a>
+												<a href="" class="social-info">
+													<span class="lnr lnr-heart"></span>
+													<p class="hover-text">Wishlist</p>
+												</a>
+												<a href="" class="social-info">
+													<span class="lnr lnr-sync"></span>
+													<p class="hover-text">compare</p>
+												</a>
+												<a href="" class="social-info">
+													<span class="lnr lnr-move"></span>
+													<p class="hover-text">view more</p>
+												</a>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							</tr>
-							<%})%>
-						<%    
-						}else{%>
-							<tr>
-								<td>
-									User Not Found
-								</td>
-							</tr>
-					   <% }
-						%>
-						
+								</tr>
+								<%})%>
+									<% }else{%>
+										<tr>
+											<td>
+												User Not Found
+											</td>
+										</tr>
+										<% } %>
+
 					</div>
 				</section>
 				<!-- End Best Seller -->
@@ -224,16 +236,18 @@
 							<option value="1">Show 12</option>
 						</select>
 					</div>
-                     
+
 
 					<div class="pagination">
-						<% total.forEach(element => { %>
-							<a href="/products?page=<%=element%>"><%=element%></a>
-						<% }) %>
-						
-						
+						<% total.forEach(element=> { %>
+							<a href="/products?page=<%=element%>">
+								<%=element%>
+							</a>
+							<% }) %>
+
+
 					</div>
-					
+
 				</div>
 				<!-- End Filter Bar -->
 			</div>
@@ -241,7 +255,7 @@
 	</div>
 
 	<!-- Start related-product Area -->
-	
+
 	<!-- End related-product Area -->
 
 	<!-- start footer Area -->
@@ -252,7 +266,8 @@
 					<div class="single-footer-widget">
 						<h6>About Us</h6>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+							ut labore dolore
 							magna aliqua.
 						</p>
 					</div>
@@ -263,18 +278,22 @@
 						<p>Stay update with our latest</p>
 						<div class="" id="mc_embed_signup">
 
-							<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-							 method="get" class="form-inline">
+							<form target="_blank" novalidate="true"
+								action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+								method="get" class="form-inline">
 
 								<div class="d-flex flex-row">
 
-									<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-									 required="" type="email">
+									<input class="form-control" name="EMAIL" placeholder="Enter Email"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
+										required="" type="email">
 
 
-									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
+											aria-hidden="true"></i></button>
 									<div style="position: absolute; left: -5000px;">
-										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
+											type="text">
 									</div>
 
 									<!-- <div class="col-lg-4 col-md-4">
@@ -315,10 +334,14 @@
 				</div>
 			</div>
 			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p>
+				<p class="footer-text m-0">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+					made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+						target="_blank">Colorlib</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
 			</div>
 		</div>
 	</footer>
@@ -350,15 +373,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							<div class="quick-view-content">
 								<div class="top">
 									<h3 class="head">Mill Oil 1000W Heater, White</h3>
-									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span class="ml-10">$149.99</span></div>
+									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span
+											class="ml-10">$149.99</span></div>
 									<div class="category">Category: <span>Household</span></div>
 									<div class="available">Availibility: <span>In Stock</span></div>
 								</div>
 								<div class="middle">
-									<p class="content">Mill Oil is an innovative oil filled radiator with the most modern technology. If you are
-										looking for something that can make your interior look awesome, and at the same time give you the pleasant
+									<p class="content">Mill Oil is an innovative oil filled radiator with the most
+										modern technology. If you are
+										looking for something that can make your interior look awesome, and at the same
+										time give you the pleasant
 										warm feeling during the winter.</p>
-									<a href="#" class="view-full">View full Details <span class="lnr lnr-arrow-right"></span></a>
+									<a href="#" class="view-full">View full Details <span
+											class="lnr lnr-arrow-right"></span></a>
 								</div>
 								<div class="bottom">
 									<div class="color-picker d-flex align-items-center">Color:
@@ -372,8 +399,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 										Quantity:
 										<input type="text" class="quantity-amount ml-15" value="1" />
 										<div class="arrow-btn d-inline-flex flex-column">
-											<button class="increase arrow" type="button" title="Increase Quantity"><span class="lnr lnr-chevron-up"></span></button>
-											<button class="decrease arrow" type="button" title="Decrease Quantity"><span class="lnr lnr-chevron-down"></span></button>
+											<button class="increase arrow" type="button" title="Increase Quantity"><span
+													class="lnr lnr-chevron-up"></span></button>
+											<button class="decrease arrow" type="button" title="Decrease Quantity"><span
+													class="lnr lnr-chevron-down"></span></button>
 										</div>
 
 									</div>
@@ -391,29 +420,30 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-	const addcart = function (id) {
-		$.ajax({
-			url: "/addtocart",
-			method:'patch',
-			data:{
-				id:id
-			},
-			success: function(response) {
-				Swal.fire(
-				'Saved cart!',
-				'You clicked the button!',
-				'success'
-				)
-        console.log('success');
-         }
-		})
-	}
-</script>
+	<script>
+		const addcart = function (id) {
+			$.ajax({
+				url: "/addtocart",
+				method: 'patch',
+				data: {
+					id: id
+				},
+				success: function (response) {
+					Swal.fire(
+						'Saved cart!',
+						'You clicked the button!',
+						'success'
+					)
+					console.log('success');
+				}
+			})
+		}
+	</script>
 
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
 	<script src="js/vendor/bootstrap.min.js"></script>
 	<script src="js/jquery.ajaxchimp.min.js"></script>
 	<script src="js/jquery.nice-select.min.js"></script>
@@ -427,20 +457,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/main.js"></script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-				<script>										$(document).ready(function() {
-														$('#people').on('change', function() {
-																var sortVal = $(this).val();
-																var categoryId = '{{categoryId}}';
-																var url;
-																if (sortVal == '-1') {
-																	url = '/sort?id=' + categoryId + '&sort=-1';
-																} else if (sortVal == '1') {
-																	url = '/sort?id=' + categoryId + '&sort=1';
-																}
-																window.location.href = url;
-															});
-														});
-													</script>
+	<script>										$(document).ready(function () {
+			$('#people').on('change', function () {
+				var sortVal = $(this).val();
+				var categoryId = '{{categoryId}}';
+				var url;
+				if (sortVal == '-1') {
+					url = '/sort?id=' + categoryId + '&sort=-1';
+				} else if (sortVal == '1') {
+					url = '/sort?id=' + categoryId + '&sort=1';
+				}
+				window.location.href = url;
+			});
+		});
+	</script>
 </body>
 
 </html>

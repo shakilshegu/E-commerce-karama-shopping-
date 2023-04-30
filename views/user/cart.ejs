@@ -150,7 +150,8 @@
                                             <div class="media">
                                                 <div class="d-flex">
                                                     <img width="100px"
-                                                         src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%=product.productId.image[0]%>.jpg" alt="">
+                                                        src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%=product.productId.image[0]%>.jpg"
+                                                        alt="">
                                                 </div>
                                                 <div class="media-body">
                                                     <p>
@@ -164,27 +165,27 @@
                                             <a href="#" class="genric-btn danger circle" id="delete"
                                                 onclick="deleteCart('<%= product.productId._id%>')">Remove</a>
                                         </td>
-                                            <td class="quantity">
-                                                <div class="input-group" >
-                                                    <div class="input-group-prepend">
-                                                        <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                            onclick="decrementQtyAndUpdate('<%=userId%>','<%= product.productId._id%>')">-</button>
-                                                    </div>
-                                                   <div >
-                                                    <input style="width: 65px;"      disabled required type="number"
-                                                    id="<%= product.productId._id%>" name="quantity"
-                                                    class="quantity form-control input-number text-center"
-                                                    value="<%=product.quantity%>" min="1" max="100"
-                                                    onchange="changeqty('<%=userId%>','<%= product.productId._id%>')">
-                                                   </div>
-
-                                                    <div class="input-group-append">
-                                                        <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                            onclick="incrementQtyAndUpdate('<%=userId%>','<%= product.productId._id%>')">+</button>
-                                                    </div>
+                                        <td class="quantity">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        onclick="decrementQtyAndUpdate('<%=userId%>','<%= product.productId._id%>')">-</button>
                                                 </div>
-                                            </td>
-<!-- 
+                                                <div>
+                                                    <input style="width: 65px;" disabled required type="number"
+                                                        id="<%= product.productId._id%>" name="quantity"
+                                                        class="quantity form-control input-number text-center"
+                                                        value="<%=product.quantity%>" min="1" max="100"
+                                                        onchange="changeqty('<%=userId%>','<%= product.productId._id%>')">
+                                                </div>
+
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        onclick="incrementQtyAndUpdate('<%=userId%>','<%= product.productId._id%>')">+</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- 
                                         <td class="quantity">
                                             <div class="input-group mb-5">
                                                 <input style="width: 2px;" required type="number"
@@ -232,19 +233,15 @@
                                                     <td>
                                                         <h5>Subtotal</h5>
                                                     </td>
-                                                    <%if(typeof total  !== 'undefined'){
-                                                        %>
+                                                    <%if(typeof total !=='undefined' ){ %>
                                                         <td>
                                                             <h5>$<%= total%>
                                                             </h5>
                                                         </td>
-                                                        <%
-                                                    } else{
-                                                        %>
+                                                        <% } else{ %>
                                                             <h5></h5>
-                                                        <%
-                                                    }%>
-                                                    
+                                                            <% }%>
+
                                                 </tr>
                                                 <tr class="shipping_area">
                                                     <td>
@@ -405,16 +402,16 @@
 
     <script>
         function decrementQtyAndUpdate(userId, productId) {
-  const inputElem = document.getElementById(productId);
-  inputElem.stepDown();
-  inputElem.dispatchEvent(new Event('change'));
-}
+            const inputElem = document.getElementById(productId);
+            inputElem.stepDown();
+            inputElem.dispatchEvent(new Event('change'));
+        }
 
-function incrementQtyAndUpdate(userId, productId) {
-  const inputElem = document.getElementById(productId);
-  inputElem.stepUp();
-  inputElem.dispatchEvent(new Event('change'));
-}
+        function incrementQtyAndUpdate(userId, productId) {
+            const inputElem = document.getElementById(productId);
+            inputElem.stepUp();
+            inputElem.dispatchEvent(new Event('change'));
+        }
 
     </script>
 

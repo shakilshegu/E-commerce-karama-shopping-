@@ -62,7 +62,7 @@
                   <li class="nav-item">
                     <a class="nav-link" href="singleproduct">Product Details</a>
                   </li>
-                  
+
                 </ul>
               </li>
               <li class="nav-item submenu dropdown">
@@ -76,9 +76,9 @@
               </li>
               <li class="nav-item ">
                 <a class="nav-link" href="/shakil">Contact</a>
-              </li>              
+              </li>
 
-              <% if (typeof user !== 'undefined') { %>
+              <% if (typeof user !=='undefined' ) { %>
                 <li class="nav-item submenu dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                     aria-expanded="false">
@@ -98,21 +98,21 @@
               <li class="nav-item">
                 <a href="getUserProfile" class="cart"><span class="ti-user"></span></a>
               </li>
-            </li>
-              <% } %>
-            <% if (typeof user === 'undefined') { %>
-              <li class="nav-item">
-                <a class="nav-link" href="login">login</a>
               </li>
-            <% } %>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
+              <% } %>
+                <% if (typeof user==='undefined' ) { %>
                   <li class="nav-item">
-                    <button class="search">
-                      <span class="lnr lnr-magnifier" id="search"></span>
-                    </button>
+                    <a class="nav-link" href="login">login</a>
                   </li>
-                </ul>
+                  <% } %>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item">
+                <button class="search">
+                  <span class="lnr lnr-magnifier" id="search"></span>
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
@@ -139,20 +139,21 @@
             <div class="row single-slide align-items-center d-flex">
               <div class="col-lg-5 col-md-6">
                 <div class="banner-content">
-                  <h1><%=banner[0].
-                    heading %><br />Collection!</h1>
+                  <h1>
+                    <%=banner[0]. heading %><br />Collection!
+                  </h1>
                   <p>
                     <%=banner[0].discription%>
                   </p>
                   <div class="add-bag d-flex align-items-center">
-                    <a  href=""><span ></span></a>
+                    <a href=""><span></span></a>
                     <span class="add-text text-uppercase"></span>
                   </div>
                 </div>
               </div>
               <div class="col-lg-7">
                 <div class="banner-img">
-               <a href="products"> <img class="img-fluid" src="/productimage/<%=banner[0].image %>" alt="" /></a>   
+                  <a href="products"> <img class="img-fluid" src="/productimage/<%=banner[0].image %>" alt="" /></a>
                 </div>
               </div>
             </div>
@@ -160,8 +161,9 @@
             <div class="row single-slide">
               <div class="col-lg-5">
                 <div class="banner-content">
-                  <h1><%=banner[0].
-                    heading %> <br />Collection!</h1>
+                  <h1>
+                    <%=banner[0]. heading %> <br />Collection!
+                  </h1>
                   <p>
                     <%=banner[0].discription%>
                   </p>
@@ -238,10 +240,12 @@
             <div class="col-lg-8 col-md-8">
               <div class="single-deal">
                 <div class="overlay"></div>
-               <a href="products"><img class="img-fluid w-100" src="/productimage/<%=banner[1].image %>" alt="" /></a> 
+                <a href="products"><img class="img-fluid w-100" src="/productimage/<%=banner[1].image %>" alt="" /></a>
                 <a href="img/category/c1.jpg" class="img-pop-up" target="_blank">
                   <div class="deal-details">
-                    <h6 class="deal-title"><%=banner[1].heading %></h6>
+                    <h6 class="deal-title">
+                      <%=banner[1].heading %>
+                    </h6>
                   </div>
                 </a>
               </div>
@@ -313,52 +317,60 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row">
           <!-- single product -->
-         <%products.forEach(products => { %>
-          <div class="col-lg-3 col-md-6">
-            <div class="single-product">
-              <img class="img-fluid" style="height: 280px;" src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%=products.image[0]%>.jpg" alt="" />
-              <div class="product-details">
-                <h6><%=products.brand%></h6>
-                <h7><%=products.description%></h7>
-                <div class="price">
-                  <h6><%=products.price %></h6>
-                  <h6 class="l-through">$210.00</h6>
-                </div>
-                <div class="prd-bottom">
-                  <% if (typeof user !== 'undefined') { %>
-                    <a  onclick="addcart('<%=products._id %>')" class="social-info">
-                      <span class="ti-bag"></span>
-                      <p class="hover-text">add to bag</p>
-                    </a>
-                  <% } %>
-                   <% if (typeof user === 'undefined') { %>
-                    <a href="/login" class="social-info">
-                      <span class="ti-bag"></span>
-                      <p class="hover-text">add to bag</p>
-                    </a>
-                   <% } %>
-                  
-  
-                  </a> <a href="" class="social-info">
-                    <span class="lnr lnr-heart"></span>
-                    <p class="hover-text">Wishlist</p>
-                  </a>
-                  <a href="" class="social-info">
-                    <span class="lnr lnr-sync"></span>
-                    <p class="hover-text">compare</p>
-                  </a>
-                  <a href="" class="social-info">
-                    <span class="lnr lnr-move"></span>
-                    <p class="hover-text">view more</p>
-                  </a>
+          <%products.forEach(products=> { %>
+            <div class="col-lg-3 col-md-6">
+              <div class="single-product">
+                <img class="img-fluid" style="height: 280px;"
+                  src="https://res.cloudinary.com/deyttwtx7/image/upload/v1682690590/<%=products.image[0]%>.jpg"
+                  alt="" />
+                <div class="product-details">
+                  <h6>
+                    <%=products.brand%>
+                  </h6>
+                  <h7>
+                    <%=products.description%>
+                  </h7>
+                  <div class="price">
+                    <h6>
+                      <%=products.price %>
+                    </h6>
+                    <h6 class="l-through">$210.00</h6>
+                  </div>
+                  <div class="prd-bottom">
+                    <% if (typeof user !=='undefined' ) { %>
+                      <a onclick="addcart('<%=products._id %>')" class="social-info">
+                        <span class="ti-bag"></span>
+                        <p class="hover-text">add to bag</p>
+                      </a>
+                      <% } %>
+                        <% if (typeof user==='undefined' ) { %>
+                          <a href="/login" class="social-info">
+                            <span class="ti-bag"></span>
+                            <p class="hover-text">add to bag</p>
+                          </a>
+                          <% } %>
+
+
+                            </a> <a href="" class="social-info">
+                              <span class="lnr lnr-heart"></span>
+                              <p class="hover-text">Wishlist</p>
+                            </a>
+                            <a href="" class="social-info">
+                              <span class="lnr lnr-sync"></span>
+                              <p class="hover-text">compare</p>
+                            </a>
+                            <a href="" class="social-info">
+                              <span class="lnr lnr-move"></span>
+                              <p class="hover-text">view more</p>
+                            </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-         <% }) %>
+            <% }) %>
         </div>
       </div>
     </div>
@@ -632,15 +644,15 @@
   <!-- end product Area -->
 
   <!-- Start exclusive deal Area -->
- 
+
   <!-- End exclusive deal Area -->
 
   <!-- Start brand Area -->
-  
+
   <!-- End brand Area -->
 
   <!-- Start related-product Area -->
-  
+
   <!-- End related-product Area -->
 
   <!-- start footer Area -->
@@ -729,25 +741,25 @@
   </footer>
   <!-- End footer Area -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-	const addcart = function (id) {
-		$.ajax({
-			url: "/addtocart",
-			method:'patch',
-			data:{
-				id:id
-			},
-			success: function(response) {
-				Swal.fire(
-				'Saved cart!',
-				'You clicked the button!',
-				'success'
-				)
-        console.log('success');
-         }
-		})
-	}
-</script>
+  <script>
+    const addcart = function (id) {
+      $.ajax({
+        url: "/addtocart",
+        method: 'patch',
+        data: {
+          id: id
+        },
+        success: function (response) {
+          Swal.fire(
+            'Saved cart!',
+            'You clicked the button!',
+            'success'
+          )
+          console.log('success');
+        }
+      })
+    }
+  </script>
 
   <script src="js/vendor/jquery-2.2.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
