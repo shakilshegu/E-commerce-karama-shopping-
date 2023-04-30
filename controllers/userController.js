@@ -9,12 +9,12 @@ const { otpGen } = require("../controllers/otpControllers");
 const orderModel = require("../models/orderModel ");
 const Coupon = require("../models/couponmodel");
 const Banner = require("../models/bannerModel");
-require('dotenv').config()
+require("dotenv").config();
 const Razorpay = require("razorpay");
 const { Console } = require("console");
 
 var instance = new Razorpay({
-  key_id:"rzp_test_wndxslMBFSLmer",
+  key_id: "rzp_test_wndxslMBFSLmer",
   key_secret: "xSaw57oQRz1dpZ9rQrKmqJHA",
 });
 
@@ -263,24 +263,27 @@ const getproducts = async (req, res) => {
 
     if (req.query.search) {
       search = req.query.search;
-      filter.$or = [    { productname: { $regex: ".*" + search + ".*", $options: "i" } },    { brand: { $regex: ".*" + search + ".*", $options: "i" } },  ];
+      filter.$or = [
+        { productname: { $regex: ".*" + search + ".*", $options: "i" } },
+        { brand: { $regex: ".*" + search + ".*", $options: "i" } },
+      ];
     }
-    
+
     if (req.query.category) {
       filter.category = req.query.category;
     }
-    
+
     if (req.query.sort) {
       const parts = req.query.sort.split(":");
       sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
     }
-    
+
     const data = await productcollection
       .find(filter)
       .sort(sort)
       .skip((pageNO - 1) * perpage)
       .limit(perpage);
-    
+
     const count = await productcollection.countDocuments(filter);
     const totalpage = Math.ceil(count / perpage);
     let a = [];
@@ -289,7 +292,7 @@ const getproducts = async (req, res) => {
       a[i] = j;
       i++;
     }
-    
+
     const categories = await categorycollectons.find();
     res.render("user/products", {
       user: data,
@@ -301,12 +304,10 @@ const getproducts = async (req, res) => {
       pageNO,
       totalpage,
     });
-    
   } catch (error) {
     console.log(error.message);
   }
 };
-
 
 // const getproducts = async (req, res) => {
 //   try {
@@ -348,8 +349,6 @@ const getproducts = async (req, res) => {
 //     console.log(error.message);
 //   }
 // };
-
-
 
 //single product page------------
 const getsingleproduct = async (req, res) => {
@@ -703,8 +702,9 @@ const postPlaceOrder = async (req, res) => {
           receipt: "" + orderId,
         };
 
-        instance.orders.create(options, function (err, order) { console.log(order);
-          if(err){
+        instance.orders.create(options, function (err, order) {
+          console.log(order);
+          if (err) {
             console.log(err);
           }
           res.json({ order });
@@ -727,7 +727,7 @@ const verifyPayment = async (req, res) => {
       const product = cartData.product;
       const details = req.body;
       const crypto = require("crypto");
-      let hmac1 = crypto.createHmac("sha256","xSaw57oQRz1dpZ9rQrKmqJHA");
+      let hmac1 = crypto.createHmac("sha256", "xSaw57oQRz1dpZ9rQrKmqJHA");
       console.log(hmac1);
       hmac1.update(
         details.payment.razorpay_order_id +
@@ -741,14 +741,14 @@ const verifyPayment = async (req, res) => {
         const hai = newOrder.map((value) => {
           return value._id;
         });
-        
+
         let test1 = await Order.findByIdAndUpdate(
           { _id: hai },
           { $set: { paymentId: details.payment.razorpay_payment_id } }
         ).then((value) => {
           console.log(value);
         });
-        
+
         let test2 = await Order.findByIdAndUpdate(orderReceipt, {
           $set: { status: "placed" },
         });
@@ -981,13 +981,13 @@ const editpostaddress = async (req, res) => {
 };
 
 //contacts----------
-const contacts = (req, res)=>{
+const contacts = (req, res) => {
   try {
-    res.render("user/contact")
+    res.render("user/contact");
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 
 module.exports = {
   getHome,
@@ -1023,5 +1023,5 @@ module.exports = {
   updateData,
   editaddress,
   editpostaddress,
-  contacts
+  contacts,
 };
