@@ -38,7 +38,7 @@
   <section class="cart_area">
     <div class="container">
       <%user.forEach(element=> { %>
-        <form action="/posteditaddress" class="billing-form" method="post">
+        <form action="/posteditaddress?user=<%= element._id %>" class="billing-form" method="post">
           <h3 class="mb-4 billing-heading">edit address</h3>
           <div class="row align-items-end">
             <div class="col-12">
@@ -92,6 +92,10 @@
               <div class="form-group">
                 <label for="phone">Phone</label>
                 <input type="text" value="<%=element.phone %>" class="form-control" placeholder="" name="phone"
+                  required />
+              </div>
+              <div class="form-group">
+                <input type="hidden" value="<%=element._id%>"  id="id" class="form-control" placeholder="" name="id"
                   required />
               </div>
             </div>
