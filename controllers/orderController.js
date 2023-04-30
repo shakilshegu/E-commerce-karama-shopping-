@@ -158,27 +158,68 @@ const report = async (req,res) => {
 //sales report----------------
 const sales = async (req,res) => {
   try {
-    const orderData = await Order.find()
-    let SubTotal = 0
+    const { from, to } = req.query;
+    let orderData = await Order.find();
+    let SubTotal = 0;
+
+    // calculate subtotal of all orders
     orderData.forEach(function(value){
       SubTotal = SubTotal+value.totalAmount;
-    })
-      const status = await Order.find({"product.status" : {$exists : true}})
-      const value = req.query.value || 'ALL'
-      if(value == "cod"){
-          const data = await Order.find({paymentMethod : "cod"})
-          res.render('admin/sales',{ data , message : 'COD' ,status,value })
-      }else if (value == "online"){
-          const data = await Order.find({paymentMethod : "online"})
-          res.render('admin/sales',{ data , message : 'Online',status,value })
-      }else {
-          const data = await Order.find({})
-          res.render('admin/sales', {data,status,value,total: SubTotal })
-      }
+    });
+
+    // filter orders by date range
+    if (from && to) {
+      orderData = await Order.find({Date: {$gte: new Date(from), $lte: new Date(to)}});
+    }
+
+    const status = await Order.find({"product.status" : {$exists : true}});
+    const value = req.query.value || 'ALL';
+
+    if(value == "cod"){
+        const data = await Order.find({paymentMethod : "cod"});
+        res.render('admin/sales',{ data , message : 'COD' ,status,value });
+    }else if (value == "online"){
+        const data = await Order.find({paymentMethod : "online"});
+        res.render('admin/sales',{ data , message : 'Online',status,value });
+    }else {
+        const data = orderData;
+        res.render('admin/sales', {data,status,value,total: SubTotal });
+    }
   } catch (error) {
       console.log(error.message);
   }
 }
+
+
+
+
+
+
+
+
+// const sales = async (req,res) => {
+//   try {
+//     const orderData = await Order.find()
+//     let SubTotal = 0
+//     orderData.forEach(function(value){
+//       SubTotal = SubTotal+value.totalAmount;
+//     })
+//       const status = await Order.find({"product.status" : {$exists : true}})
+//       const value = req.query.value || 'ALL'
+//       if(value == "cod"){
+//           const data = await Order.find({paymentMethod : "cod"})
+//           res.render('admin/sales',{ data , message : 'COD' ,status,value })
+//       }else if (value == "online"){
+//           const data = await Order.find({paymentMethod : "online"})
+//           res.render('admin/sales',{ data , message : 'Online',status,value })
+//       }else {
+//           const data = await Order.find({})
+//           res.render('admin/sales', {data,status,value,total: SubTotal })
+//       }
+//   } catch (error) {
+//       console.log(error.message);
+//   }
+// }
 
 
 module.exports = {
