@@ -31,7 +31,6 @@
 </head>
 
 <body id="category">
-
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
@@ -114,13 +113,6 @@
 	
 	<!-- End Banner Area -->
 	<div class="container">
-		<!-- <div class="shop__sidebar mb-2" >
-			<div class="shop__sidebar__search">
-				<form  method="get">
-					<input type="text" name="search" placeholder="Search...">
-					<button type="submit"><span class="fa fa-search"></span></button>
-				
-		</div> -->
 		<div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-5">
 				<div class="sidebar-categories">
@@ -159,15 +151,14 @@
 							<option value="1">Default sorting</option>
 							<a href="/short/?id=<%=data2.catego %>" value="1">Default sorting</a>
 							
+								<option value="">Sort By</option>
+								<option value="brand:asc" >Brand A-Z</option>
+								<option value="brand:desc" >Brand Z-A</option>
+								<option value="price:asc" >Price Low to High</option>
+								<option value="price:desc">Price High to Low</option>
+							
 						</select>
 					</div>
-					<div class="sorting mr-auto"><select>
-						<option value="1">Show 1</option>
-							<option value="1">Show 2</option>
-							<option value="1">Show 3</option>
-						</select>
-					</div>
-					
 				</div>
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
@@ -187,10 +178,8 @@
 										<h7><%=user.description%></h7>
 										<div class="price">
 											<h6><%=user.price %></h6>
-											
 										</div>
 										<div class="prd-bottom">
-	
 											<a  onclick="addcart('<%=user._id %>')"  class="social-info">
 												<span class="ti-bag"></span>
 												<p class="hover-text">add to bag</p>

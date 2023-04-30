@@ -151,8 +151,6 @@ const getSalesReport = async (req, res) => {
     });
     res.render("admin/salesReport", { data: orderData, total: SubTotal });
   }
-
-
   } catch (error) {
     res.redirect("/serverERR", { message: error.message });
     console.log(error.message);
@@ -161,45 +159,6 @@ const getSalesReport = async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//getSales Report----------------------------------------------------------------
-// const getSalesReport = async (req, res) => {
-//   try {
-//     const orderData = await Order.find({ status: { $eq: "Delivered" } });
-//     let SubTotal = 0;
-//     orderData.forEach(function (value) {
-//       SubTotal = SubTotal + value.totalAmount;
-//     });
-//     console.log(
-//       orderData
-//     );
-
-//     res.render("admin/salesReport", { data: orderData, total: SubTotal });
-//   } catch (error) {
-//     res.redirect("/serverERR", { message: error.message });
-//     console.log(error.message);
-//   }
-// };
 
 module.exports = {
   getLogin,

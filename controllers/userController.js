@@ -245,33 +245,43 @@ const verifymail = async (req, res) => {
 };
 
 //product page--------------------------------------
-
 const getproducts = async (req, res) => {
   try {
     let search = "";
-    if (req.query.search) {
-      search = req.query.search;
-    }
-    const pageNO = req.query.page;
+    let filter = {};
+    let sort = {};
+    const pageNO = parseInt(req.query.page) || 1;
     const perpage = 6;
 
+    if (req.query.search) {
+      search = req.query.search;
+      filter.$or = [
+        { productname: { $regex: ".*" + search + ".*", $options: "i" } },
+        { brand: { $regex: ".*" + search + ".*", $options: "i" } },
+      ];
+    }
+
+    if (req.query.search) {
+      search = req.query.search;
+      filter.$or = [    { productname: { $regex: ".*" + search + ".*", $options: "i" } },    { brand: { $regex: ".*" + search + ".*", $options: "i" } },  ];
+    }
+    
+    if (req.query.category) {
+      filter.category = req.query.category;
+    }
+    
+    if (req.query.sort) {
+      const parts = req.query.sort.split(":");
+      sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
+    }
+    
     const data = await productcollection
-      .find({
-        $or: [
-          { productname: { $regex: ".*" + search + ".*", $options: "i" } },
-          { brand: { $regex: ".*" + search + ".*", $options: "i" } },
-        ],
-      })
+      .find(filter)
+      .sort(sort)
       .skip((pageNO - 1) * perpage)
-      .limit(perpage * 1);
-    const count = await productcollection
-      .find({
-        $or: [
-          { productname: { $regex: ".*" + search + ".*", $options: "i" } },
-          { brand: { $regex: ".*" + search + ".*", $options: "i" } },
-        ],
-      })
-      .countDocuments();
+      .limit(perpage);
+    
+    const count = await productcollection.countDocuments(filter);
     const totalpage = Math.ceil(count / perpage);
     let a = [];
     let i = 0;
@@ -279,13 +289,65 @@ const getproducts = async (req, res) => {
       a[i] = j;
       i++;
     }
-    const data2 = await categorycollectons.find();
-    console.log(data);
-    res.render("user/products", { user: data, data2, total: a });
+    
+    const categories = await categorycollectons.find();
+    res.render("user/products", {
+      user: data,
+      data2: categories,
+      total: a,
+      search,
+      category: req.query.category,
+      sort: req.query.sort,
+      pageNO,
+      totalpage,
+    });
+    
   } catch (error) {
     console.log(error.message);
   }
 };
+
+
+// const getproducts = async (req, res) => {
+//   try {
+//     let search = "";
+//     if (req.query.search) {
+//       search = req.query.search;
+//     }
+//     const pageNO = req.query.page;
+//     const perpage = 6;
+
+//     const data = await productcollection
+//       .find({
+//         $or: [
+//           { productname: { $regex: ".*" + search + ".*", $options: "i" } },
+//           { brand: { $regex: ".*" + search + ".*", $options: "i" } },
+//         ],
+//       })
+//       .skip((pageNO - 1) * perpage)
+//       .limit(perpage * 1);
+//     const count = await productcollection
+//       .find({
+//         $or: [
+//           { productname: { $regex: ".*" + search + ".*", $options: "i" } },
+//           { brand: { $regex: ".*" + search + ".*", $options: "i" } },
+//         ],
+//       })
+//       .countDocuments();
+//     const totalpage = Math.ceil(count / perpage);
+//     let a = [];
+//     let i = 0;
+//     for (var j = 1; j <= totalpage; j++) {
+//       a[i] = j;
+//       i++;
+//     }
+//     const data2 = await categorycollectons.find();
+//     console.log(data);
+//     res.render("user/products", { user: data, data2, total: a });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 
 
