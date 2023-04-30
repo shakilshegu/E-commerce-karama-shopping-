@@ -58,7 +58,6 @@ const unlistBanner = async (req, res) => {
 };
 
 //delete banner-----------
-
 const deletebanner = async (req, res) => {
   try {
     const id = req.query.id;

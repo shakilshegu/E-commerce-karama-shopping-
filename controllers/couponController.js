@@ -40,7 +40,6 @@ const postaddcoupon = async (req, res) => {
 //detete coupen-------
 const deleteCoupon = async (req, res) => {
   try {
-    
     const code = req.query.code;
     await Coupon.findOneAndDelete({ couponcode: code });
     res.redirect("/admin/coupon");
@@ -49,11 +48,9 @@ const deleteCoupon = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   getCoupon,
   getaddcoupon,
   postaddcoupon,
-  deleteCoupon
+  deleteCoupon,
 };

@@ -350,6 +350,7 @@ const getproducts = async (req, res) => {
 //   }
 // };
 
+
 //single product page------------
 const getsingleproduct = async (req, res) => {
   try {
@@ -773,7 +774,6 @@ const verifyPayment = async (req, res) => {
     console.log(error.message);
   }
 };
-
 
 // getordr
 const getOrder = async (req, res) => {
