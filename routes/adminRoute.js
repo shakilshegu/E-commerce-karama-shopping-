@@ -46,5 +46,4 @@ adminRouter.post("/updateStatus",session.logged,ordercontroller.updatestatus)
 adminRouter.post("/addCoupon",session.logged,couponcontroller.postaddcoupon)
 adminRouter.post('/addBanner',session.logged,upload.single('image'),bannerController.postAddBanner)
 
-
 module.exports = adminRouter;
