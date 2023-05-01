@@ -979,7 +979,6 @@ const editpostaddress = async (req, res) => {
       );
 
       if (data) {
-        console.log("🚀 ~ file: userController.js:982 ~ editpostaddress ~ data:", data)
         res.redirect("/user/editadress");
       }
     }

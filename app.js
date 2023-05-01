@@ -3,9 +3,15 @@ const app = express();
 const session = require("express-session");
 const mongoose = require("mongoose");
 require('dotenv').config()
-mongoose.connect("mongodb://127.0.0.1:27017/UserManage").then(() => {
+
+mongoose.connect("mongodb+srv://shakil:shakil1212@cluster0.2pkhiac.mongodb.net/UserManage").then(() => {
   console.log(" port connected");
 });
+
+// mongoose.connect("mongodb://127.0.0.1:27017/UserManage").then(() => {
+//   console.log(" port connected");
+// });
+
 const flash = require('express-flash');
 
 const upload = require('./middleware/multer')
