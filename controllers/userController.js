@@ -12,6 +12,9 @@ const Banner = require("../models/bannerModel");
 require("dotenv").config();
 const Razorpay = require("razorpay");
 const { Console } = require("console");
+const { query } = require("express");
+
+const { ObjectId } = require("mongodb")
 
 var instance = new Razorpay({
   key_id: "rzp_test_wndxslMBFSLmer",
@@ -247,69 +250,123 @@ const verifymail = async (req, res) => {
 };
 
 //product page--------------------------------------
-const getproducts = async (req, res) => {
+// const getproducts = async (req, res) => {
+//   try {
+//     let search = "";
+//     let filter = {};
+//     let sort = {};
+//     const pageNO = parseInt(req.query.page) || 1;
+//     const perpage = 6;
+
+//     if (req.query.search) {
+//       search = req.query.search;
+//       filter.$or = [
+//         { productname: { $regex: ".*" + search + ".*", $options: "i" } },
+//         { brand: { $regex: ".*" + search + ".*", $options: "i" } },
+//       ];
+//     }
+
+//     if (req.query.search) {
+//       search = req.query.search;
+//       filter.$or = [
+//         { productname: { $regex: ".*" + search + ".*", $options: "i" } },
+//         { brand: { $regex: ".*" + search + ".*", $options: "i" } },
+//       ];
+//     }
+
+//     if (req.query.category) {
+//       filter.category = req.query.category;
+//     }
+
+//     if (req.query.sort) {
+//       const parts = req.query.sort.split(":");
+//       sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
+//     }
+
+//     const data = await productcollection
+//       .find(filter)
+//       .sort(sort)
+//       .skip((pageNO - 1) * perpage)
+//       .limit(perpage);
+
+//     const count = await productcollection.countDocuments(filter);
+//     const totalpage = Math.ceil(count / perpage);
+//     let a = [];
+//     let i = 0;
+//     for (var j = 1; j <= totalpage; j++) {
+//       a[i] = j;
+//       i++;
+//     }
+
+//     const categories = await categorycollectons.find();
+//     res.render("user/products", {
+//       user: data,
+//       data2: categories,
+//       total: a,
+//       search,
+//       category: req.query.category,
+//       sort: req.query.sort,
+//       pageNO,
+//       totalpage,
+//     });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
+
+const getproducts = async (req ,res) => {
   try {
-    let search = "";
-    let filter = {};
-    let sort = {};
+    let search = req.query.search ||""
+    let filter2 = req.query.filter || 'ALL'
+    let sort = req.query.sort || "Low"
     const pageNO = parseInt(req.query.page) || 1;
     const perpage = 6;
+    const skip = perpage * (pageNO - 1)
 
-    if (req.query.search) {
-      search = req.query.search;
-      filter.$or = [
-        { productname: { $regex: ".*" + search + ".*", $options: "i" } },
-        { brand: { $regex: ".*" + search + ".*", $options: "i" } },
-      ];
+    const catData = await categorycollectons.find({status : false})
+
+    let cat = []
+        for(i = 0; i < catData.length ; i++){
+            cat[i] = catData[i]._id
+        }
+
+        let filter
+    
+    filter2 === "ALL" ? filter = [...cat] : filter = req.query.filter.split(',')
+    if(filter2 != "ALL") {
+      for (let i = 0; i< filter.length; i++){
+        filter[i] = new ObjectId(filter[i])
+      }
     }
 
-    if (req.query.search) {
-      search = req.query.search;
-      filter.$or = [
-        { productname: { $regex: ".*" + search + ".*", $options: "i" } },
-        { brand: { $regex: ".*" + search + ".*", $options: "i" } },
-      ];
-    }
+    console.log(filter,filter2);
+    req.query.sort == "High" ? sort = -1 : sort = 1
 
-    if (req.query.category) {
-      filter.category = req.query.category;
-    }
+    const data = await productcollection.aggregate([
+      {$match : {productname : {$regex : '^'+search, $options : 'i'},category : {$in : filter}}},
+      {$sort : {price : sort}},
+      {$skip : skip},
+      {$limit : perpage}
+    ])
+    
+    const productCount = (await productcollection.find(
+      {productname : {$regex : search, $options :'i'}}).where("category").in([...filter])).length
+  
+  const totalPage = Math.ceil(productCount / perpage)
 
-    if (req.query.sort) {
-      const parts = req.query.sort.split(":");
-      sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
-    }
-
-    const data = await productcollection
-      .find(filter)
-      .sort(sort)
-      .skip((pageNO - 1) * perpage)
-      .limit(perpage);
-
-    const count = await productcollection.countDocuments(filter);
-    const totalpage = Math.ceil(count / perpage);
-    let a = [];
-    let i = 0;
-    for (var j = 1; j <= totalpage; j++) {
-      a[i] = j;
-      i++;
-    }
-
-    const categories = await categorycollectons.find();
     res.render("user/products", {
-      user: data,
-      data2: categories,
-      total: a,
-      search,
-      category: req.query.category,
-      sort: req.query.sort,
-      pageNO,
-      totalpage,
-    });
+      user : data,
+      data2 : catData,
+      total : totalPage,
+      filter : filter,
+      sort : sort,
+      search : search
+      })
+    
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
-};
+}
 
 // const getproducts = async (req, res) => {
 //   try {
