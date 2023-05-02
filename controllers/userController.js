@@ -62,9 +62,9 @@ const signupSubmit = (req, res) => {
 const verifyOtp = async (req, res) => {
   try {
     let { val1, val2, val3, val4, val5, val6 } = req.body;
-    let formOtp = new Number(val1 + val2 + val3 + val4 + val5 + val6);
-
-    if (formOtp.number == oneTimePin) {
+    console.log(req.body);
+    let formOtp = Number(val1 + val2 + val3 + val4 + val5 + val6);
+    if (formOtp == oneTimePin) {
       let { name, email, number, password } = userdata;
       const spassword = await securePassword(password);
       const user = new User({
@@ -74,7 +74,9 @@ const verifyOtp = async (req, res) => {
         password: spassword,
       });
       const userData = await user.save();
-      res.render("user/login", { message: "registration failed" });
+      if(userData){
+        res.render("user/login", { message: "registration succuss" });
+      }
     } else {
       res.render("user/signup", { message: "registration failed" });
     }
