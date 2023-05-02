@@ -960,28 +960,27 @@ const editpostaddress = async (req, res) => {
   try {
     if (req.session.user) {
       const addressId = req.body.id;
-      const userId = req.query.user; // use query parameter instead of session
+      console.log("🚀 ~ file: userController.js:963 ~ editpostaddress ~ addressId:", addressId)
+      const userId = req.session.user; 
 
-      const data = await User.updateOne(
-        { _id: userId, "addressId._id": addressId },
+      const x = await User.findOne({ _id: userId, " address._id": req.body.id})
+      console.log("🚀 ~ file: userController.js:966 ~ editpostaddress ~ x:", x)
+
+     await User.updateOne(
+        { _id: userId, " address._id": addressId },
+
         {
           $set: {
-            "addressId.$": {
-              name: req.body.name,
-              town: req.body.town,
-              street: req.body.street,
-              postcode: req.body.postcode,
-              phone: req.body.phone,
-            },
+            "address.$.name": req.body.name,
+            "address.$.town": req.body.town,
+            "address.$.street": req.body.street,
+            "address.$.postcode": req.body.postcode,
+            "address.$.phone": req.body.phone,
           },
         },
-        { new: true }
       );
-
-      if (data) {
-        res.redirect("/user/editadress");
+        res.redirect("/checkout");
       }
-    }
   } catch (error) {
     console.log(error.message);
   }
