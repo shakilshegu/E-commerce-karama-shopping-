@@ -548,7 +548,6 @@ const confermation = async (req, res) => {
   try {
     const orderData = await Order.findOne().sort({ Date: -1 }).limit(1);
     const userId = orderData.user;
-    
     res.render("user/order_placed", { user: orderData });
   } catch (error) {
     console.log(error.message);
