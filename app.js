@@ -24,14 +24,11 @@ app.use('/upload-images',upload.array('image'),async(req,res)=>{
 })
 
 
-
-
-
 app.use(session({
     secret:process.env.SESSION_SCRKEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000*10 }
+    cookie: { maxAge: 6000000 }
 }));
 app.use(flash());
 
