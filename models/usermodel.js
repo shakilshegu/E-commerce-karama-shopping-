@@ -60,7 +60,16 @@ const userschema=mongoose.Schema({
     wallet:{
         type:Number,
         default:0,
-    }
+    },
+    wallehistory:[{
+        peramount:{
+            type:Number,
+
+        },
+        date:{
+            type:String
+        }
+    }]
 })
 
 //user collection and export-------------------

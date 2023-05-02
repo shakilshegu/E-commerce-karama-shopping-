@@ -546,10 +546,9 @@ const checkout = async (req, res) => {
 //confermation after checkout
 const confermation = async (req, res) => {
   try {
-    const orderData = await Order.findOne().sort({ data: -1 }).limit(1);
-
+    const orderData = await Order.findOne().sort({ Date: -1 }).limit(1);
     const userId = orderData.user;
-
+    
     res.render("user/order_placed", { user: orderData });
   } catch (error) {
     console.log(error.message);
@@ -933,7 +932,9 @@ const getUserProfile = async (req, res) => {
   try {
     if (req.session.user) {
       let userData = await User.findOne({ _id: req.session.user });
-      res.render("user/userprofile", { data: userData });
+      let datawallet = await User.find({_id: req.session.user})
+      const [{wallehistory}]=datawallet
+      res.render("user/userprofile", { data: userData,wallet:wallehistory});
     } else {
       res.redirect("/login");
     }

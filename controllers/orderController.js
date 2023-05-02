@@ -40,6 +40,7 @@ const updatestatus = async (req, res) => {
 const cancelOrder = async (req, res) => {
   try {
     if (req.session.user) {
+      console.log(req.session.user);
       const id = req.query.id;
       const idLength = id.length;
       if (idLength != 24) {
@@ -54,9 +55,17 @@ const cancelOrder = async (req, res) => {
             await User.findOneAndUpdate(
               { name: req.session.name },
               {
-                $inc: { wallet: orderData.totalAmount },
+                $inc: { wallet: orderData.totalAmount }
               }
             );
+            const date= new Date()
+            const y = await User.findOneAndUpdate(
+              { name: req.session.name },
+              {
+                $push: {wallehistory:{ peramount:orderData.totalAmount,date:date} }
+              }
+            );
+            console.log("🚀 ~ file: orderController.js:68 ~ cancelOrder ~ y:", y)
 
             const orderDataa = await Order.findByIdAndUpdate(id, {
               status: "cancelled",

@@ -19,7 +19,6 @@ const couponSchema = mongoose.Schema({
         type:Boolean,
         default:true
     },
-
 })
 
 module.exports = mongoose.model('coupon',couponSchema)

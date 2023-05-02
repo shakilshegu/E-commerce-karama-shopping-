@@ -153,8 +153,8 @@
                     <div class="card-body">
                         <h5 class="text-start wallet mb-3">Wallet : $<%= data.wallet %>
                         </h5>
-                        <form action="/update-profile" method="post">
-                            <div class="col-lg-8">
+                        <form action="/update-profile" method="post" class="d-flex">
+                            <div class="col-7">
                                 <div class="card mb-4">
                                     <div class="card-body">
                                         <div class="row">
@@ -196,6 +196,15 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-4 border">
+                                <h4 class="wallet mt-2">Wallet history:-</h4>
+                             <% wallet.forEach(element => { %>
+                                <h6 class="wall mt-3">date:-<span><%=element.date%></span></h6>
+                                <h6>Amount:- <span><%=element.peramount %></span></h6>
+                             <% }) %>   
+                             
+                             
                             </div>
                         </form>
                     </div>
