@@ -121,7 +121,7 @@
     </div>
   </section>
   <!-- End Banner Area -->
-
+  
   <!--================Cart Area =================-->
   <section class="cart_area">
     <div class="container">
@@ -246,9 +246,6 @@
                     </div>
                     <%}) %>
                 </div>
-
-
-
                 <button type="button" class="primary-btn" data-toggle="modal" data-target="#exampleModal">
                   Add Address
                 </button>
@@ -348,9 +345,6 @@
   </section>
   <!--================End Cart Area =================-->
 
-  <!-- start footer Area -->
-
-  <!-- End footer Area -->
 
   <script src="js/vendor/jquery-2.2.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
@@ -458,7 +452,7 @@
           "color": "#3399cc"
         }
       }
-      console.log("esrtdydydkiuoffo");
+
       var rzp1 = new Razorpay(options);
       rzp1.open();
     }
@@ -506,7 +500,6 @@
             swal("Oops!", "Coupon has expired.", "error");
           } else if (response.cartamount) {
             swal("Oops!", "Minimum Amount.", "error");
-
           } else if (response.user) {
             swal("Oops!", "Coupon used", "error");
           }
