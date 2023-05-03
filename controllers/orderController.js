@@ -95,10 +95,19 @@ const returnOrder = async (req, res) => {
       const amount = await User.findOne({ name: req.session.name });
       const total = amount.wallet + orderData.totalAmount;
 
+      // Check if the order was placed within the last 2 weeks
+      const twoWeeksAgo = new Date();
+      twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+      const orderDate = new Date(orderData.Date);
+      if (orderDate < twoWeeksAgo) {
+        throw new Error("Cannot return order after 2 weeks.");
+      }
+
       if (
         orderData.paymentMethod == "cod" ||
         orderData.paymentMethod == "online"
       ) {
+        // Add the order total back to the user's wallet
         await User.findOneAndUpdate(
           { name: req.session.name },
           {
@@ -108,6 +117,7 @@ const returnOrder = async (req, res) => {
           console.log(value);
         });
 
+        // Set the order status to "returned" and reset the wallet field to 0
         const orderDataa = await Order.findByIdAndUpdate(id, {
           status: "returned",
           wallet: 0,
@@ -125,6 +135,44 @@ const returnOrder = async (req, res) => {
     console.log(error.message);
   }
 };
+
+// const returnOrder = async (req, res) => {
+//   try {
+//     if (req.session.user) {
+//       const id = req.query.id;
+//       const orderData = await Order.findById(id);
+//       const amount = await User.findOne({ name: req.session.name });
+//       const total = amount.wallet + orderData.totalAmount;
+//       if (
+//         orderData.paymentMethod == "cod" ||
+//         orderData.paymentMethod == "online"
+//       ) {
+//         await User.findOneAndUpdate(
+//           { name: req.session.name },
+//           {
+//             $set: { wallet: total },
+//           }
+//         ).then((value) => {
+//           console.log(value);
+//         });
+
+//         const orderDataa = await Order.findByIdAndUpdate(id, {
+//           status: "returned",
+//           wallet: 0,
+//         });
+
+//         if (orderDataa) {
+//           res.redirect("/order");
+//         }
+//       }
+//     } else {
+//       res.redirect("/login");
+//     }
+//   } catch (error) {
+//     res.redirect("/serverERR", { message: error.message });
+//     console.log(error.message);
+//   }
+// };
 
 //checkWallet
 const checkWallet = async (req, res) => {
